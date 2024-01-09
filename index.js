@@ -52,18 +52,28 @@ const prop={
 //for Post
 app.post('/api/shorturl',(req,res)=>{
   prop.originalUrl.push(req.body.url)
+  prop.shortUrl.push(prop.originalUrl.length+1)
   res.json({
     original_url:req.body.url,
-    short_url:prop.shortUrl.push(prop.originalUrl.length+1)
+    short_url:prop.shortUrl.length
   })
+  console.log(prop)
 })
 app.get('/api/shorturl/:url',(req,res)=>{
-  let url = req.params.url;
-  if (url == prop.shortUrl[url]){
-    redirect(prop.originalUrl[url]);
-}else{
-  res.send("Short Url Doesnt Exist")
-}});
+  let url = Number(req.params.url);
+  prop.shortUrl.filter((item,index)=>{
+    if(item === url){
+      res.redirect(prop.originalUrl[index])
+    }
+  }) 
+
+  // if (prop.shortUrl){
+  //   redirect(prop.originalUrl[url]);
+  // }else{
+  //   res.send("Short Url Doejsnt Exist")
+  // }
+});
+
 app.listen(port, function() {
   console.log(`Listening on port ${port}`);
 });
