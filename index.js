@@ -64,6 +64,8 @@ app.get('/api/shorturl/:url',(req,res)=>{
   prop.shortUrl.filter((item,index)=>{
     if(item === url){
       res.redirect(prop.originalUrl[index])
+    }else{
+      res.send("Fuck off")
     }
   }) 
 
