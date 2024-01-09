@@ -18,11 +18,11 @@ mongoose.connect(process.env.MONGO_URI)
 const urlShrinker = mongoose.Schema({
   originalUrl:{
     type:String,
-    required
+    required:true
   },
   shortUrl:{
     type:String,
-    required
+    required:true
   }
 })
 
