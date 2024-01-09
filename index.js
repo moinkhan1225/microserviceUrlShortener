@@ -3,26 +3,30 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
+const bodyParser = require("body-parser")
 const mongoose = require('mongoose');
 
+app.use(bodyParser.urlencoded,{extended:true})
 //connecting mongoDB
 
 mongoose.connect(process.env.MONGO_URI)
-.then(console.log("Mongo is Connected"))
+.then(()=>{
+  console.log("Mongo is Connected");
+  })
 .catch((e)=>{
   console.error(e)
 })
+
+
 
 //creating schema
 
 const urlShrinker = mongoose.Schema({
   originalUrl:{
-    type:String,
-    required:true
+    type:Array
   },
   shortUrl:{
-    type:String,
-    required:true
+    type:Array
   }
 })
 
@@ -40,14 +44,17 @@ app.get('/', function(req, res) {
   res.sendFile(process.cwd() + '/views/index.html');
 });
 
-
+const prop={
+  originalUrl:[],
+  shortUrl:[]
+}
 
 //for Post
-app.post('/api/a',(req,res)=>{
-  const data = new data({
-    originalUrl    :   "asdasdas",
-    shortUrl       :   "asdasd"
-    })
+app.post('/api/shorturl',(req,res)=>{
+  res.json({
+    original_url:prop.originalUrl.push(req.body.url),
+    short_url:prop.shortUrl.push(prop.originalUrl.length+1)
+  })
 })
 app.listen(port, function() {
   console.log(`Listening on port ${port}`);
