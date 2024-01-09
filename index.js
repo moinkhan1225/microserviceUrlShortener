@@ -52,7 +52,7 @@ const prop={
 //for Post
 app.post('/api/shorturl',(req,res)=>{
   prop.originalUrl.push(req.body.url)
-  prop.shortUrl.push(prop.originalUrl.length+1)
+  prop.shortUrl.push(prop.originalUrl.length)
   res.json({
     original_url:req.body.url,
     short_url:prop.shortUrl.length
