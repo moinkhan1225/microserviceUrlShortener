@@ -57,6 +57,14 @@ app.post('/api/shorturl',(req,res)=>{
     short_url:prop.shortUrl.push(prop.originalUrl.length+1)
   })
 })
+app.get('/api/shorturl/:url',(req,res)=>{
+  let url = req.params.url;
+  if (url == 1){
+    res.send("hi")
+  }else{
+    res.send("bye")
+  }
+})
 app.listen(port, function() {
   console.log(`Listening on port ${port}`);
 });
