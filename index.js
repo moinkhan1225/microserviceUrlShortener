@@ -59,12 +59,11 @@ app.post('/api/shorturl',(req,res)=>{
 })
 app.get('/api/shorturl/:url',(req,res)=>{
   let url = req.params.url;
-  if (url == 1){
-    res.send("hi")
-  }else{
-    res.send("bye")
-  }
-})
+  if (url == prop.shortUrl[url]){
+    redirect(prop.originalUrl[url]);
+}else{
+  res.send("Short Url Doesnt Exist")
+}});
 app.listen(port, function() {
   console.log(`Listening on port ${port}`);
 });
