@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({extended:true}))
 mongoose.connect(process.env.MONGO_URI)
 .then(()=>{
   console.log("Mongo is Connected");
-  })
+})
 .catch((e)=>{
   console.error(e)
 })
@@ -54,8 +54,8 @@ const prop={
 app.post('/api/shorturl',(req,res)=>{
   const createAndSaveUrl = (done) => {
     let newData = new urlShrinkModel({
-     original_url:req.body.url,
-     short_url:1
+     original_url:urlShrinker.originalUrl.push(req.body.url),
+     short_url:urlShrinker.originalUrl.length
     })
    
      newData.save((err,data)=>{
@@ -66,8 +66,8 @@ app.post('/api/shorturl',(req,res)=>{
    };
   //prop.originalUrl.push(req.body.url)
   //prop.shortUrl.push(prop.originalUrl.length)
-  urlShrinkModel.originalUrl.push(req.body.url)
-  urlShrinkModel.shortUrl.push(req.originalUrl.length)
+  //urlShrinkModel.originalUrl.push(req.body.url)
+  //urlShrinkModel.shortUrl.push(req.originalUrl.length)
   res.json({
     original_url:req.body.url,
     short_url:prop.shortUrl.length
