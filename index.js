@@ -33,6 +33,7 @@ const urlShrinker = mongoose.Schema({
 //creating model
 const urlShrinkModel=mongoose.model('urlShrinkModel',urlShrinker)
 
+
 // Basic Configuration
 const port = process.env.PORT || 3000;
 
@@ -51,11 +52,22 @@ const prop={
 
 //for Post
 app.post('/api/shorturl',(req,res)=>{
+  const createAndSaveUrl = (done) => {
+    let newData = new urlShrinkModel({
+     original_url:req.body.url,
+     short_url:1
+    })
+   
+     newData.save((err,data)=>{
+     if(err) return console.error(err);
+     done(null , data);
+   
+    })
+   };
   //prop.originalUrl.push(req.body.url)
   //prop.shortUrl.push(prop.originalUrl.length)
-  //urlShrinkModel.originalUrl.push(req.body.url)
-  //urlShrinkModel.shortUrl.push(req.originalUrl.length)
-  console.log(urlShrinkModel)
+  urlShrinkModel.originalUrl.push(req.body.url)
+  urlShrinkModel.shortUrl.push(req.originalUrl.length)
   res.json({
     original_url:req.body.url,
     short_url:prop.shortUrl.length
@@ -83,3 +95,4 @@ app.get('/api/shorturl/:url',(req,res)=>{
 app.listen(port, function() {
   console.log(`Listening on port ${port}`);
 });
+exports.createAndSaveUrl = createAndSaveUrl;
