@@ -95,4 +95,3 @@ app.get('/api/shorturl/:url',(req,res)=>{
 app.listen(port, function() {
   console.log(`Listening on port ${port}`);
 });
-exports.createAndSaveUrl = createAndSaveUrl;
